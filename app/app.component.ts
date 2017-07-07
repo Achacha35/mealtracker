@@ -35,9 +35,13 @@ import { Component } from '@angular/core';
   <h1>Calories</h1>
     <div class="calorie" *ngFor="let calorie of calories">
     <ul>
-    <li><span class="title">{{calories}}</span></li>
+    <li><span class="title">{{calorie}}</span></li>
     </ul>
   </div>
+  <form (submit)="addCalories(newCalories.value)">
+  <label>Add Calories: </label>
+  <input type="number" #newCalories />
+  </form>
   </div>
   </div>
 
@@ -60,5 +64,8 @@ export class AppComponent {
   }
   addDetail(newDetail) {
     this.details.push(newDetail);
+  }
+  addCalories(newCalories) {
+    this.calories.push(newCalories);
   }
 }
