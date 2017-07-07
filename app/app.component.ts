@@ -14,6 +14,10 @@ import { Component } from '@angular/core';
   <li><span class="title">{{name}}</span></li>
   </ul>
   </div>
+  <form (submit)="addTask(newTask.value)">
+  <label>Add Food: </label>
+  <input type="text" #newTask />
+  </form>
   </div>
   <div class="col-md-4">
   <h1>Details</h1>
@@ -22,6 +26,10 @@ import { Component } from '@angular/core';
     <li><span class="title">{{detail}}</span></li>
     </ul>
   </div>
+  <form (submit)="addDetail(newDetail.value)">
+  <label>Add Details: </label>
+  <input type="text" #newDetail />
+  </form>
   </div>
   <div class="col-md-4">
   <h1>Calories</h1>
@@ -37,10 +45,6 @@ import { Component } from '@angular/core';
 
 
 
-  <form (submit)="addTask(newTask.value)">
-  <label>Add Food: </label>
-  <input type="text" #newTask />
-</form>
 
 </div>
   `
@@ -53,5 +57,8 @@ export class AppComponent {
 
   addTask(newTask) {
     this.names.push(newTask);
+  }
+  addDetail(newDetail) {
+    this.details.push(newDetail);
   }
 }
