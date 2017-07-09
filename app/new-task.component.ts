@@ -4,20 +4,21 @@ import { Task } from './task.model';
 @Component({
   selector: 'new-task',
   template: `
-    <h1>New Task</h1>
+    <h2>Add new food</h2>
     <div>
-      <label>Enter Food:</label>
+      <label>Enter Food: </label>
       <input #newName>
     </div>
     <div>
-      <label>Enter details:</label>
+      <label>Enter details: </label>
       <input #newDetails>
     </div>
 
     <div>
       <label>Enter calories:</label>
       <input #newCalories>
-
+    </div>
+    <div>
       <button (click)="
         addClicked(newName.value, newDetails.value, newCalories);
         newName.value='';
