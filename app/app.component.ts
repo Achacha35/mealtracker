@@ -4,68 +4,60 @@ import { Component } from '@angular/core';
   selector: 'my-app',
   template: `
   <div class="container">
-  <h1>Meal Tracker</h1>
-  <h3> Log foods that you have eaten today!</h3>
-  <div class="row">
-  <div class="col-md-4">
-  <h1>Food</h1>
-  <div class="name" *ngFor="let name of names">
-  <ul>
-  <li><span class="title">{{name}}</span></li>
-  </ul>
-  </div>
-  <form (submit)="addTask(newTask.value)">
-  <label>Add Food: </label>
-  <input type="text" #newTask />
-  </form>
-  </div>
-  <div class="col-md-4">
-  <h1>Details</h1>
-    <div class="detail" *ngFor="let detail of details">
-    <ul>
-    <li><span class="title">{{detail}}</span></li>
-    </ul>
-  </div>
-  <form (submit)="addDetail(newDetail.value)">
-  <label>Add Details: </label>
-  <input type="text" #newDetail />
-  </form>
-  </div>
-  <div class="col-md-4">
-  <h1>Calories</h1>
-    <div class="calorie" *ngFor="let calorie of calories">
-    <ul>
-    <li><span class="title">{{calorie}}</span></li>
-    </ul>
-  </div>
-  <form (submit)="addCalories(newCalories.value)">
-  <label>Add Calories: </label>
-  <input type="number" #newCalories />
-  </form>
-  </div>
-  </div>
+    <h1>Meal Tracker</h1>
+    <div *ngFor="let currentTask of tasks">
+      <h2><strong>{{ currentTask.name }}</strong></h2>
+      <h4>Details: {{ currentTask.details }}</h4>
+      <h4>Calories: {{ currentTask.calories }}</h4>
 
 
-
-
-
-
+      <button (click)="showDetails(currentTask)">Edit</button>
+    </div>
+    <div *ngIf="selectedTask">
+      <h1>Edit Task</h1>
+      <div>
+        <label>Enter Food:</label>
+        <input [(ngModel)]="selectedTask.name">
+      </div>
+      <div>
+        <label>Enter details:</label>
+        <input [(ngModel)]="selectedTask.details">
+      </div>
+      <div>
+        <label>Enter Calories:</label>
+        <input [(ngModel)]="selectedTask.calories">
+        <button (click)="finishedEditing()">Done</button>
+      </div>
+    </div>
+    <new-task
+    (newTaskSender)="addTask($event)"
+    ></new-task>
 </div>
+
   `
 })
 
 export class AppComponent {
-  names = ["Hamburger"];
-  details=["Didn't get a soda",];
-  calories=["354",];
+  public tasks: Task[] = [
+      new Task("Hamburger", "Good", "365"),
+      new Task("Cheese", "Smelt", "360"),
+      new Task("Sandwich", "Very good", "350"),
 
-  addTask(newTask) {
-    this.names.push(newTask);
+  ];
+  selectedTask: Task = null;
+  showDetails(clickedTask: Task) {
+    this.selectedTask = clickedTask;
   }
-  addDetail(newDetail) {
-    this.details.push(newDetail);
+  addTask(newTaskFromChild: Task) {
+   this.tasks.push(newTaskFromChild);
+ }
+  finishedEditing() {
+    this.selectedTask = null;
   }
-  addCalories(newCalories) {
-    this.calories.push(newCalories);
-  }
+
+}
+
+export class Task {
+  public done: boolean = false;
+  constructor(public name: string, public details: string, public calories: string) {   }
 }
