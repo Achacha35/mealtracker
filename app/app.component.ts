@@ -8,13 +8,11 @@ import { Component } from '@angular/core';
     <h1>Meal Tracker</h1>
     </div>
     <div *ngFor="let currentTask of tasks">
-      <h2><strong>{{ currentTask.name }}</strong></h2>
-      <h4>Details: {{ currentTask.details }}</h4>
-      <h4>Calories: {{ currentTask.calories }}</h4>
-
-
-      <button (click)="showDetails(currentTask)">Edit</button>
     </div>
+    <task-list
+    [childTaskList]="tasks"
+    (clickSender)="showDetails($event)"
+    ></task-list>
     <div *ngIf="selectedTask">
       <h2>Edit Task</h2>
       <div>
@@ -41,9 +39,13 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   public tasks: Task[] = [
-    new Task("Hamburger", "Good", "365"),
-    new Task("Cheese", "Smelt", "360"),
-    new Task("Sandwich", "Very good", "350"),
+    new Task("Beef burger", "Had a lot of beef", 354),
+    new Task("Cheddar cheese", "Had a really bad odour", 501),
+    new Task("Sandwich", "Very unfulfilling", 340),
+    new Task("Chicken", "Just the right amount of spice", 460),
+    new Task("Salmon", "Too fishy", 366),
+    new Task("Big Mac", "Extremely fulfilling", 550),
+
 
   ];
   selectedTask: Task = null;
@@ -61,5 +63,5 @@ export class AppComponent {
 
 export class Task {
   public done: boolean = false;
-  constructor(public name: string, public details: string, public calories: string) { }
+  constructor(public name: string, public details: string, public calories: number) { }
 }
