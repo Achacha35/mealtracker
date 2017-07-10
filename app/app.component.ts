@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
     (clickSender)="showDetails($event)"
     ></task-list>
     <div *ngIf="selectedTask">
-      <h2>Edit Task</h2>
+      <h2>Edit Food</h2>
       <div>
         <label>Enter Food: </label>
         <input [(ngModel)]="selectedTask.name">
@@ -26,6 +26,8 @@ import { Component } from '@angular/core';
       <div>
         <label>Enter Calories:</label>
         <input [(ngModel)]="selectedTask.calories">
+      </div>
+      <div>
         <button (click)="finishedEditing()">Done</button>
       </div>
     </div>
